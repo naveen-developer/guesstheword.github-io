@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Guess the word</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+        }
+        
+        .outerdiv {
+            height: 85vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #abaa2fd1;
+        }
+        
+        .innerdiv {
+            width: 550px;
+            height: 320px;
+            background-color: #f3e4e4;
+            padding: 30px;
+            /*		box-shadow: [horizontal offset] [vertical offset] [blur radius] [optional spread radius] [color];	*/
+            box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+        }
+
+        .hidden{
+        	display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="p-3 text-center" style="background-color: #2a9d8f;">
+        <h1 style="text-shadow: -7px 0px #4c464647;" class="text-white"> Guess The Word Game </h1>
+    </div>
+    <div class="outerdiv">
+        <div class="innerdiv">
+            
+
+            <h5 class="my-4 text-center"> Guess the word </h5>
+
+            <div class="form-group">
+                <input type="text" class="form-control hidden" id="usr">
+            </div>
+            <button class="btn btn-dark btn-block">Click here to start</button>
+            <p class="my-5 text-center"> Developed By NaniNaveen </p>
+            
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    	
+    	const msg = document.querySelector('h5');
+		const guess = document.querySelector('input');
+		const btn = document.querySelector('.btn');
+		let play = false;
+		let swords = ['Python', 'Java', 'C++', 'Swift', 'Go', 'SQL', 'Ruby', 'android','sql','c#','reactjs'];
+
+		const createwords = () => {
+
+		let randno = Math.floor((Math.random() * swords.length));		
+		let newtempwords = swords[randno];
+
+		return newtempwords;
+	}
+
+		const scrablewords = (arr) => {
+			for(let i=arr.length-1;i>0;i--)
+			{
+				let temp = arr[i];
+				let j = Math.floor(Math.random()*(i+1));
+				arr[i] = arr[j];
+				arr[j] = temp;
+			}
+
+			return arr;
+		}
+
+		btn.addEventListener('click',function(){
+			if(!play)
+			{
+				play = true;
+				btn.innerHTML = "Guess";
+				guess.classList.toggle('hidden');
+				newwords = createwords();		
+				randwords = scrablewords(newwords.split("")).join("");
+				console.log(randwords);
+				msg.innerHTML = `Guess the word:- ${randwords}`;
+			}
+			else
+			{
+				let temwords = guess.value;
+				console.log(newwords);
+				if(newwords === temwords)
+				{
+					play = false;
+					//alert("Awesome text are same....");
+					msg.innerHTML = `Awesome It's Correct. it is ${newwords}`;
+					guess.classList.toggle('hidden');
+					btn.innerHTML = "Start Again";
+					guess.value = "";
+				}
+				else{
+					//alert("Wrong something wrong...");
+					msg.innerHTML = `Sorry... It's incorrect please try again...${newwords}`;
+				}
+			}
+
+			
+			
+			
+		})
+		
+    </script>
+</body>
+
+</html>
